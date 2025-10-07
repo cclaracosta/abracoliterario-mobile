@@ -56,31 +56,37 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
+      {}
       <View style={styles.header}>
-        <Text style={styles.title}>Seja bem-vindo!</Text>
-        <Text style={styles.subtitle}>Construindo cidadania ativa através da leitura</Text>
-        {/* Aqui você pode colocar uma imagem ou ícone */}
         <Image 
-          source={require('./assets/avatar.png')} // coloque sua imagem aqui
+          source={require('../../assets/images/simboloabraco.png')} 
           style={styles.avatar}
         />
+        <Text style={styles.title}>Seja bem-vindo!</Text>
+        <Text style={styles.subtitle}>
+          Construindo cidadania ativa através da leitura
+        </Text>
       </View>
 
+      {}
       <View style={styles.form}>
         <TextInput
           style={styles.input}
           placeholder="E-mail"
           value={email}
           onChangeText={setEmail}
+          keyboardType="email-address"
         />
+
         <TextInput
           style={styles.input}
           placeholder="Senha"
-          secureTextEntry={true}
+          secureTextEntry
           value={password}
           onChangeText={setPassword}
         />
-        <TouchableOpacity>
+
+        <TouchableOpacity onPress={() => console.log('Recuperar senha')}>
           <Text style={styles.forgot}>Esqueceu a senha?</Text>
         </TouchableOpacity>
 
@@ -101,13 +107,19 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fcdada', 
+    backgroundColor: '#fcdada',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 20,
   },
   header: {
     alignItems: 'center',
     marginBottom: 30,
+  },
+  avatar: {
+    width: 80,
+    height: 80,
+    marginBottom: 10,
   },
   title: {
     fontSize: 24,
@@ -120,14 +132,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     color: '#333',
   },
-  avatar: {
-    width: 80,
-    height: 80,
-    marginTop: 10,
-  },
   form: {
-    width: '80%',
-    backgroundColor: '#f89797', 
+    width: '100%',
+    backgroundColor: '#f89797',
     borderRadius: 20,
     padding: 20,
     alignItems: 'center',
@@ -142,12 +149,12 @@ const styles = StyleSheet.create({
   },
   forgot: {
     alignSelf: 'flex-end',
-    color: '#999',
+    color: '#555',
     marginBottom: 20,
   },
   loginButton: {
     width: '100%',
-    backgroundColor: '#d85a5a', 
+    backgroundColor: '#d85a5a',
     padding: 15,
     borderRadius: 25,
     alignItems: 'center',
