@@ -10,7 +10,7 @@ export default function Cadastro() {
 
   const handleRegister = () => {
     console.log("Cadastrar:", { email, password, name });
-    // aqui você chamaria sua API ou navegação
+
   };
 
   return (

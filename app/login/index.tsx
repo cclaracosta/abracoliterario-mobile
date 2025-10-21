@@ -107,7 +107,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fcdada',
+    backgroundColor: '#FFCFDB',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
@@ -130,11 +130,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
     marginVertical: 10,
-    color: '#333',
+    color: '#000000ff',
   },
   form: {
     width: '100%',
-    backgroundColor: '#f89797',
+    backgroundColor: '#FFABB8',
     borderRadius: 20,
     padding: 20,
     alignItems: 'center',
@@ -149,12 +149,12 @@ const styles = StyleSheet.create({
   },
   forgot: {
     alignSelf: 'flex-end',
-    color: '#555',
+    color: '#FD5972',
     marginBottom: 20,
   },
   loginButton: {
     width: '100%',
-    backgroundColor: '#d85a5a',
+    backgroundColor: '#FEC992',
     padding: 15,
     borderRadius: 25,
     alignItems: 'center',
@@ -166,11 +166,11 @@ const styles = StyleSheet.create({
   },
   noAccount: {
     marginVertical: 5,
-    color: '#555',
+    color: '#FD5972',
   },
   registerButton: {
     width: '100%',
-    backgroundColor: '#d85a5a',
+    backgroundColor: '#FEC992',
     padding: 15,
     borderRadius: 25,
     alignItems: 'center',
