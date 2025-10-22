@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "academia-mobile",
-    "slug": "academia-mobile",
+    "name": "aplicativo-mobile",
+    "slug": "aplicativo-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
