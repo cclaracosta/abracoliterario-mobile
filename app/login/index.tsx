@@ -38,10 +38,12 @@ const style = StyleSheet.create({
   }
 });
 */
-/*import React, { useState } from 'react';
+import { Link, useRouter } from 'expo-router';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 export default function LoginScreen() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -56,10 +58,10 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      {}
+      { }
       <View style={styles.header}>
-        <Image 
-          source={require('../../assets/images/simboloabraco.png')} 
+        <Image
+          source={require('../../assets/images/simboloabraco.png')}
           style={styles.avatar}
         />
         <Text style={styles.title}>Seja bem-vindo!</Text>
@@ -68,7 +70,7 @@ export default function LoginScreen() {
         </Text>
       </View>
 
-      {}
+      { }
       <View style={styles.form}>
         <TextInput
           style={styles.input}
@@ -90,15 +92,16 @@ export default function LoginScreen() {
           <Text style={styles.forgot}>Esqueceu a senha?</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <TouchableOpacity style={styles.loginButton} onPress={() => router.push('/tela principal')}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
 
         <Text style={styles.noAccount}>Não tem conta?</Text>
 
-        <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-          <Text style={styles.registerText}>Cadastre-se</Text>
-        </TouchableOpacity>
+        <Link href="/cadastro" style={styles.link}>
+          cadastre-se
+        </Link>
+
       </View>
     </View>
   );
@@ -167,6 +170,7 @@ const styles = StyleSheet.create({
   noAccount: {
     marginVertical: 5,
     color: '#FD5972',
+    marginRight: 100,
   },
   registerButton: {
     width: '100%',
@@ -179,5 +183,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+  link: {
+    marginTop: -25,
+    color: "blue",
+    fontSize: 14,
+    marginLeft: 100,
+  },
 });
-*/

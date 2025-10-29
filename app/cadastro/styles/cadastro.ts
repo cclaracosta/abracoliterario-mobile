@@ -60,8 +60,14 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   link: {
-    marginTop: 12,
-    color: "#000",
+    marginTop: -25,
+    color: "blue",
     fontSize: 14,
+    marginLeft: 100,
+  },
+  noAccount: {
+    marginVertical: 5,
+    color: '#FD5972',
+    marginRight: 100,
   },
 });

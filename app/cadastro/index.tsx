@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { styles } from "./styles/cadastro"; // <-- caminho CORRETO (relativo à pasta app/cadastro)
 
 export default function Cadastro() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -49,12 +50,14 @@ export default function Cadastro() {
           onChangeText={setName}
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/login')}>
           <Text style={styles.buttonText}>Cadastrar-se</Text>
         </TouchableOpacity>
 
+        <Text style={styles.noAccount}>Já tem uma conta ?</Text>
+
         <Link href="/login" style={styles.link}>
-          Já tem uma conta? Faça login
+          Faça login
         </Link>
       </View>
     </View>
