@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { View, Text, TextInput, Image, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet } from 'react-native';
 
 const books = [
   {
@@ -49,36 +49,28 @@ const books = [
   },
 ];
 
-export default function BookScreen() {
-  const [search, setSearch] = useState('');
-  const filteredBooks = useMemo(
-    () => books.filter(book => book.title.toLowerCase().includes(search.toLowerCase())),
-    [search]
-  );
-
+export default function WishListScreen() {
   return (
     <View style={styles.container}>
-      <View style={styles.pageCountContainer}>
-        <Text style={styles.pageCountText}>Total de páginas lidas</Text>
-        <Text style={styles.pageCountNumber}>1.800</Text>
+      <View style={styles.headerRow}>
+        <View style={styles.headerBox}>
+          <Text style={styles.headerText}>Lista de desejos</Text>
+        </View>
+        <TouchableOpacity style={styles.iconContainer}>
+          <Text style={styles.icon}>♡</Text>
+        </TouchableOpacity>
       </View>
 
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Buscar livros"
-        value={search}
-        onChangeText={setSearch}
-      />
-
       <FlatList
-        data={filteredBooks}
+        data={books}
         keyExtractor={item => item.id}
         numColumns={2}
         contentContainerStyle={styles.booksList}
+        columnWrapperStyle={{ justifyContent: 'space-between', marginBottom: 18 }}
         renderItem={({ item }) => (
           <View style={styles.bookItem}>
-            <Image source={{ uri: item.image }} style={styles.bookCover} />
-            <Text style={styles.bookTitle}>{item.title}</Text>
+            <Image source={{ uri: item.image }} style={styles.bookImage} />
+            <Text style={styles.bookTitle} numberOfLines={2}>{item.title}</Text>
           </View>
         )}
       />
@@ -90,43 +82,38 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFD8ED',
-    paddingHorizontal: 20,
-    paddingTop: 40
-  },
-  pageCountContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#F9A3B8',
-    borderRadius: 18,
-    justifyContent: 'space-between',
+    paddingTop: 40,
     paddingHorizontal: 22,
-    paddingVertical: 11,
-    marginBottom: 18,
-    marginTop: 20,
   },
-  pageCountText: {
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+    justifyContent: 'space-between',
+  },
+  headerBox: {
+    backgroundColor: '#FFD097',
+    paddingVertical: 16,
+    paddingHorizontal: 22,
+    borderRadius: 18,
+    flex: 1,
+    marginRight: 12,
+    marginTop: 30,
+  },
+  headerText: {
     fontSize: 17,
     color: '#fff',
-    fontWeight: 'bold',
-    opacity: 0.93
+    fontWeight: '600',
   },
-  pageCountNumber: {
-    fontSize: 17,
-    color: '#fff',
-    fontWeight: 'bold',
-    opacity: 0.93
+  iconContainer: {
+    padding: 6,
   },
-  searchInput: {
-    height: 48,
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: '#FFBEE3',
-    backgroundColor: '#fff',
-    paddingHorizontal: 12,
-    fontSize: 16,
-    marginBottom: 18
+  icon: {
+    fontSize: 28,
+    color: '#000',
   },
   booksList: {
-    alignItems: 'flex-start'
+    paddingBottom: 30,
   },
   bookItem: {
     alignItems: 'center',
@@ -136,11 +123,12 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 40,
   },
-  bookCover: {
-    width: 130,
-    height: 180,
+  bookImage: {
+    width: 124,
+    height: 172,
     borderRadius: 10,
-    marginBottom: 5
+    resizeMode: 'cover',
+    marginBottom: 6,
   },
   bookTitle: {
     fontSize: 15,

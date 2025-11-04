@@ -38,9 +38,6 @@ const UserGoalScreen = () => {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.goBack}>
-                <Text style={styles.arrow}>{'<<'}</Text>
-            </TouchableOpacity>
 
             <Image
                 source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZWU2rz5ntKtK2A2Sv21EIopsyhlXMSA8YAg&s' }}
@@ -73,10 +70,15 @@ const UserGoalScreen = () => {
                 </TouchableOpacity>
 
                 <View style={styles.menuRow}>
-                    <TouchableOpacity style={styles.menuButtonSmall}>
+                    <TouchableOpacity style={styles.menuButtonSmall}
+                        onPress={() => router.push('/avaliar')}
+                        >
                         <Text style={styles.menuLabel}>Avaliação de livros</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuButtonSmall}>
+
+                    <TouchableOpacity style={styles.menuButtonSmall}
+                    onPress={() => router.push('/lista')}
+                    >
                         <Text style={styles.menuLabel}>Lista de desejos</Text>
                     </TouchableOpacity>
                 </View>
@@ -195,9 +197,10 @@ const styles = StyleSheet.create(
         },
         buttonRow: {
             flexDirection: 'row',
+            marginTop: -30,
         },
         decreaseButton: {
-            backgroundColor: '#FF7F7F'
+            backgroundColor: '#FF7F7F',
         },
     }
 );
