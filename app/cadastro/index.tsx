@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { Link, useRouter } from "expo-router";
-import { styles } from "./styles/cadastro"; // <-- caminho CORRETO (relativo à pasta app/cadastro)
+import { styles } from "./styles/cadastro";
 
 export default function Cadastro() {
   const router = useRouter();
@@ -23,7 +23,7 @@ export default function Cadastro() {
         </Text>
 
         <Image
-          source={require("../../assets/images/simboloabraco.png")} // caminho para a imagem
+          source={require("../../assets/images/simboloabraco.png")}
           style={styles.avatar}
         />
       </View>

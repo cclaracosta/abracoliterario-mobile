@@ -2,13 +2,11 @@ import { useRouter } from 'expo-router';
 import React, { useReducer, useMemo } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-// Estado inicial da meta
 type State = {
     totalBooks: number;
     goal: number;
 };
 
-// Ações do reducer
 type Action = { type: 'increment' } | { type: 'decrement' };
 
 function reducer(state: State, action: Action): State {
@@ -33,7 +31,6 @@ const UserGoalScreen = () => {
 
     const [state, dispatch] = useReducer(reducer, { totalBooks: 1, goal: 10 });
 
-    // useMemo para calcular a porcentagem
     const percentage = useMemo(() => Math.round((state.totalBooks / state.goal) * 100), [state.totalBooks, state.goal]);
 
     return (
@@ -206,4 +203,3 @@ const styles = StyleSheet.create(
 );
 
 export default UserGoalScreen;
-
