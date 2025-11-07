@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Linking, FlatList } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, Linking, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const initialState = { liked: false, showComments: true };
@@ -18,16 +18,13 @@ function reducer(state, action) {
 
 export default function LivroDetalhes() {
   const router = useRouter();
-  const { title, image, description, pdfUrl } = useLocalSearchParams();
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const params = useLocalSearchParams();
+  const title = params?.title ?? "Título não disponível";
+  const image = params?.image ?? "https://via.placeholder.com/200x280.png?text=Sem+imagem";
+  const description = params?.description ?? "Descrição não disponível.";
+  const pdfUrl = params?.pdfUrl ?? "";
 
-  const abrirPDF = () => {
-    if (pdfUrl) {
-      Linking.openURL(pdfUrl);
-    } else {
-      alert("PDF não disponível para este livro.");
-    }
-  };
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const comments = [
     { 
@@ -56,8 +53,16 @@ export default function LivroDetalhes() {
     },
   ];
 
-  return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+  const abrirPDF = () => {
+    if (pdfUrl) {
+      Linking.openURL(pdfUrl);
+    } else {
+      alert("PDF não disponível para este livro.");
+    }
+  };
+
+  const renderHeader = () => (
+    <View>
       <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
         <Ionicons name="chevron-back" size={26} color="#38282A" />
       </TouchableOpacity>
@@ -76,13 +81,15 @@ export default function LivroDetalhes() {
         </View>
       </View>
 
-      <TouchableOpacity onPress={abrirPDF} style={styles.pdfButton}>
-        <Text style={styles.pdfButtonText}>Livro em PDF</Text>
-        <Ionicons name="link-outline" size={18} color="#38282A" style={{ marginLeft: 4 }} />
-      </TouchableOpacity>
-
       <View style={styles.descriptionBox}>
         <Text style={styles.descriptionText}>{description}</Text>
+      </View>
+
+      <View style={{ alignItems: "center", marginBottom: 18 }}>
+        <TouchableOpacity onPress={abrirPDF} style={styles.pdfButton}>
+          <Text style={styles.pdfButtonText}>Livro em PDF</Text>
+          <Ionicons name="link-outline" size={18} color="#38282A" style={{ marginLeft: 8 }} />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.commentHeader}>
@@ -95,36 +102,39 @@ export default function LivroDetalhes() {
             name={state.showComments ? "chevron-up" : "chevron-down"}
             size={18}
             color="#38282A"
-            style={{ marginLeft: 4 }}
+            style={{ marginLeft: 6 }}
           />
         </TouchableOpacity>
       </View>
+    </View>
+  );
 
-      {state.showComments && (
-        <FlatList
-          data={comments}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View style={styles.commentCard}>
-              <Image source={{ uri: item.avatar }} style={styles.avatar} />
-              <View>
-                <Text style={styles.commentUser}>{item.user}</Text>
-                <Text style={styles.commentText}>{item.text}</Text>
-              </View>
-            </View>
-          )}
-        />
+  return (
+    <FlatList
+      data={state.showComments ? comments : []}
+      keyExtractor={(item) => item.id}
+      ListHeaderComponent={renderHeader}
+      contentContainerStyle={styles.container}
+      renderItem={({ item }) => (
+        <View style={styles.commentCard}>
+          <Image source={{ uri: item.avatar }} style={styles.avatar} />
+          <View>
+            <Text style={styles.commentUser}>{item.user}</Text>
+            <Text style={styles.commentText}>{item.text}</Text>
+          </View>
+        </View>
       )}
-    </ScrollView>
+      removeClippedSubviews={true}
+    />
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#FFD8ED",
     paddingHorizontal: 20,
     paddingTop: 30,
+    paddingBottom: '100%',
   },
   backButton: {
     marginBottom: 10,
@@ -136,12 +146,15 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
     marginBottom: 15,
+    marginTop: 150,
+    margin: 30,
   },
   bookImage: {
     width: 180,
     height: 250,
     borderRadius: 12,
     marginBottom: 12,
+    marginTop: -150,
   },
   titleRow: {
     flexDirection: "row",
@@ -154,6 +167,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#38282A",
     textAlign: "center",
+    maxWidth: "80%",
+  },
+  descriptionBox: {
+    backgroundColor: "#FFE3EE",
+    borderRadius: 20,
+    padding: 15,
+    marginBottom: 12,
+  },
+  descriptionText: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: "#38282A",
+    textAlign: "justify",
   },
   pdfButton: {
     flexDirection: "row",
@@ -163,26 +189,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     alignItems: "center",
-    marginBottom: 20,
   },
   pdfButtonText: {
     color: "#38282A",
     fontWeight: "600",
   },
-  descriptionBox: {
-    backgroundColor: "#FFE3EE",
-    borderRadius: 20,
-    padding: 15,
-    marginBottom: 25,
-  },
-  descriptionText: {
-    fontSize: 15,
-    lineHeight: 22,
-    color: "#38282A",
-    textAlign: "justify",
-  },
   commentHeader: {
-    marginBottom: 10,
+    marginTop: 18,
+    marginBottom: 8,
   },
   commentToggle: {
     flexDirection: "row",
@@ -197,9 +211,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#fff",
     borderRadius: 20,
-    padding: 10,
+    padding: 12,
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: 12,
   },
   avatar: {
     width: 40,
