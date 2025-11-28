@@ -1,39 +1,60 @@
 import { Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, useWindowDimensions } from 'react-native';
 
 export default function LoginScreen() {
   const router = useRouter();
+  const { width, height } = useWindowDimensions();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    console.log('Email:', email);
-    console.log('Senha:', password);
-  };
+  const isSmallScreen = width < 360;
+  const isLargeScreen = width > 500;
 
-  const handleRegister = () => {
-    console.log('Cadastrar');
+  const dynamicStyles = {
+    title: {
+      fontSize: isLargeScreen ? 32 : isSmallScreen ? 20 : 26,
+    },
+    subtitle: {
+      fontSize: isLargeScreen ? 18 : isSmallScreen ? 12 : 14,
+    },
+    input: {
+      height: isLargeScreen ? 60 : 50,
+      fontSize: isSmallScreen ? 14 : 16,
+    },
+    buttonText: {
+      fontSize: isLargeScreen ? 20 : 16,
+    },
+    avatar: {
+      width: width * 0.25,
+      height: width * 0.25,
+    }
   };
 
   return (
     <View style={styles.container}>
-      { }
+
+      {/* HEADER */}
       <View style={styles.header}>
         <Image
           source={require('../../assets/images/simboloabraco.png')}
-          style={styles.avatar}
+          style={[styles.avatar, dynamicStyles.avatar]}
         />
-        <Text style={styles.title}>Seja bem-vindo!</Text>
-        <Text style={styles.subtitle}>
+
+        <Text style={[styles.title, dynamicStyles.title]}>
+          Seja bem-vindo!
+        </Text>
+
+        <Text style={[styles.subtitle, dynamicStyles.subtitle]}>
           Construindo cidadania ativa através da leitura
         </Text>
       </View>
 
-      { }
+      {/* FORM */}
       <View style={styles.form}>
         <TextInput
-          style={styles.input}
+          style={[styles.input, dynamicStyles.input]}
           placeholder="E-mail"
           value={email}
           onChangeText={setEmail}
@@ -41,7 +62,7 @@ export default function LoginScreen() {
         />
 
         <TextInput
-          style={styles.input}
+          style={[styles.input, dynamicStyles.input]}
           placeholder="Senha"
           secureTextEntry
           value={password}
@@ -52,8 +73,13 @@ export default function LoginScreen() {
           <Text style={styles.forgot}>Esqueceu a senha?</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.loginButton} onPress={() => router.push('/tela principal')}>
-          <Text style={styles.loginText}>Login</Text>
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={() => router.push('/tela principal')}
+        >
+          <Text style={[styles.loginText, dynamicStyles.buttonText]}>
+            Login
+          </Text>
         </TouchableOpacity>
 
         <Text style={styles.noAccount}>Não tem conta?</Text>
@@ -61,8 +87,8 @@ export default function LoginScreen() {
         <Link href="/cadastro" style={styles.link}>
           cadastre-se
         </Link>
-
       </View>
+
     </View>
   );
 }
@@ -75,26 +101,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
+
   header: {
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 20,
+    width: '100%',
   },
+
   avatar: {
-    width: 80,
-    height: 80,
+    resizeMode: 'contain',
     marginBottom: 10,
   },
   title: {
-    fontSize: 24,
     fontWeight: 'bold',
     color: '#000',
+    textAlign: 'center',
   },
   subtitle: {
-    fontSize: 14,
     textAlign: 'center',
     marginVertical: 10,
     color: '#000000ff',
+    maxWidth: '80%',
   },
+
   form: {
     width: '100%',
     backgroundColor: '#FFABB8',
@@ -104,7 +133,6 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    height: 50,
     backgroundColor: '#fff',
     borderRadius: 25,
     paddingHorizontal: 20,
@@ -114,6 +142,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     color: '#FD5972',
     marginBottom: 20,
+    marginLeft: 200,
   },
   loginButton: {
     width: '100%',
@@ -130,23 +159,14 @@ const styles = StyleSheet.create({
   noAccount: {
     marginVertical: 5,
     color: '#FD5972',
-    marginRight: 100,
-  },
-  registerButton: {
-    width: '100%',
-    backgroundColor: '#FEC992',
-    padding: 15,
-    borderRadius: 25,
-    alignItems: 'center',
-  },
-  registerText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    alignSelf: 'flex-start',
+    fontSize: 15,
   },
   link: {
-    marginTop: -25,
     color: "blue",
-    fontSize: 14,
-    marginLeft: 100,
+    fontSize: 15,
+    alignSelf: 'flex-start',
+    marginTop: -25,
+    marginLeft: 250,
   },
 });

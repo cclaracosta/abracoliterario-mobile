@@ -1,5 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, TextInput, Image, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Image, FlatList, StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
+const CARD_WIDTH = (width - 90) / 2;
+const CARD_IMAGE_HEIGHT = CARD_WIDTH * 1.50;
 
 const books = [
   {
@@ -56,6 +60,7 @@ const books = [
 
 export default function BookScreen() {
   const [search, setSearch] = useState('');
+
   const filteredBooks = useMemo(
     () => books.filter(book => book.title.toLowerCase().includes(search.toLowerCase())),
     [search]
@@ -63,10 +68,6 @@ export default function BookScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.pageCountContainer}>
-        <Text style={styles.pageCountText}>Total de páginas lidas</Text>
-        <Text style={styles.pageCountNumber}>1.800</Text>
-      </View>
 
       <TextInput
         style={styles.searchInput}
@@ -80,6 +81,7 @@ export default function BookScreen() {
         keyExtractor={item => item.id}
         numColumns={2}
         contentContainerStyle={styles.booksList}
+        columnWrapperStyle={{ justifyContent: 'space-between', marginBottom: 18 }}
         renderItem={({ item }) => (
           <View style={styles.bookItem}>
             <Image source={{ uri: item.image }} style={styles.bookCover} />
@@ -98,28 +100,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 40
   },
-  pageCountContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#F9A3B8',
-    borderRadius: 18,
-    justifyContent: 'space-between',
-    paddingHorizontal: 22,
-    paddingVertical: 11,
-    marginBottom: 18,
-    marginTop: 20,
-  },
-  pageCountText: {
-    fontSize: 17,
-    color: '#fff',
-    fontWeight: 'bold',
-    opacity: 0.93
-  },
-  pageCountNumber: {
-    fontSize: 17,
-    color: '#fff',
-    fontWeight: 'bold',
-    opacity: 0.93
-  },
+
   searchInput: {
     height: 48,
     borderRadius: 8,
@@ -128,28 +109,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 12,
     fontSize: 16,
-    marginBottom: 18
+    marginBottom: 20
   },
+
   booksList: {
-    alignItems: 'flex-start'
+    paddingBottom: 20
   },
+
   bookItem: {
+    width: CARD_WIDTH,
     alignItems: 'center',
-    marginBottom: 22,
-    marginRight: 28,
-    width: 140,
-    padding: 10,
-    margin: 40,
   },
+
   bookCover: {
-    width: 130,
-    height: 180,
+    width: CARD_WIDTH,
+    height: CARD_IMAGE_HEIGHT,
     borderRadius: 10,
     marginBottom: 5
   },
+
   bookTitle: {
     fontSize: 15,
-    color: '#38282A',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: '#38282A'
   },
 });

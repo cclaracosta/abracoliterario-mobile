@@ -1,6 +1,10 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+
+const { width } = Dimensions.get("window");
+const CARD_IMAGE_WIDTH = width * 0.2; 
+const CARD_IMAGE_HEIGHT = CARD_IMAGE_WIDTH * 1.4;
 
 const reviews = [
   {
@@ -76,30 +80,28 @@ const reviews = [
 ];
 
 const BookReviewScreen = () => {
-  const renderStars = (rating: number) => {
-    return (
-      <View style={styles.starsContainer}>
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Ionicons
-            key={i}
-            name={i < rating ? 'star' : 'star-outline'}
-            size={20}
-            color="#FFD700"
-          />
-        ))}
-      </View>
-    );
-  };
+  const renderStars = (rating: number) => (
+    <View style={styles.starsContainer}>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Ionicons
+          key={i}
+          name={i < rating ? 'star' : 'star-outline'}
+          size={width * 0.05} // escalável
+          color="#FFD700"
+        />
+      ))}
+    </View>
+  );
 
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.goBack}>
-        <Ionicons name="chevron-back" size={26} color="#38282A" />
+        <Ionicons name="chevron-back" size={width * 0.07} color="#38282A" />
       </TouchableOpacity>
 
       <View style={styles.headerBox}>
         <Text style={styles.headerText}>Avaliação de livros</Text>
-        <Ionicons name="star-outline" size={22} color="#38282A" />
+        <Ionicons name="star-outline" size={width * 0.06} color="#38282A" />
       </View>
 
       <FlatList
@@ -125,69 +127,69 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFD8ED',
-    paddingTop: 50,
-    paddingHorizontal: 20,
+    paddingTop: width * 0.12,
+    paddingHorizontal: width * 0.05,
   },
   goBack: {
     position: 'absolute',
-    top: 28,
-    left: 16,
+    top: width * 0.07,
+    left: width * 0.04,
     zIndex: 10,
   },
   headerBox: {
     backgroundColor: '#FFD097',
     borderRadius: 18,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
+    paddingVertical: width * 0.035,
+    paddingHorizontal: width * 0.05,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 25,
-    marginTop: 10,
+    marginBottom: width * 0.06,
+    marginTop: width * 0.025,
   },
   headerText: {
-    fontSize: 18,
+    fontSize: width * 0.05,
     fontWeight: '600',
     color: '#38282A',
   },
   list: {
-    paddingBottom: 30,
+    paddingBottom: width * 0.08,
   },
   card: {
     flexDirection: 'row',
     backgroundColor: '#fff',
     borderRadius: 20,
-    padding: 10,
-    marginBottom: 20,
+    padding: width * 0.025,
+    marginBottom: width * 0.04,
     shadowColor: '#000',
     shadowOpacity: 0.05,
     shadowRadius: 5,
     elevation: 2,
   },
   bookImage: {
-    width: 80,
-    height: 110,
+    width: CARD_IMAGE_WIDTH,
+    height: CARD_IMAGE_HEIGHT,
     borderRadius: 10,
-    marginRight: 12,
+    marginRight: width * 0.03,
   },
   textContainer: {
     flex: 1,
     justifyContent: 'center',
   },
   bookTitle: {
-    fontSize: 16,
+    fontSize: width * 0.045,
     fontWeight: '700',
     color: '#38282A',
-    marginBottom: 4,
+    marginBottom: width * 0.01,
   },
   starsContainer: {
     flexDirection: 'row',
-    marginBottom: 5,
+    marginBottom: width * 0.015,
   },
   bookReview: {
-    fontSize: 14,
+    fontSize: width * 0.037,
     color: '#38282A',
-    lineHeight: 18,
+    lineHeight: width * 0.045,
   },
 });
 

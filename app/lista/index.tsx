@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet, useWindowDimensions } from 'react-native';
 
 const books = [
   {
@@ -55,30 +55,75 @@ const books = [
 ];
 
 export default function WishListScreen() {
+
+  const { width } = useWindowDimensions();
+
+  const isSmall = width < 360;
+  const isLarge = width > 500;
+
+  const CARD_WIDTH = width * 0.40;        
+  const IMAGE_HEIGHT = CARD_WIDTH * 1.30;
+
+  const dynamic = {
+    bookItem: {
+      width: CARD_WIDTH,
+      padding: isSmall ? 6 : 10,
+      marginBottom: isSmall ? 12 : 20,
+    },
+    bookImage: {
+      width: CARD_WIDTH - 20,
+      height: IMAGE_HEIGHT,
+    },
+    bookTitle: {
+      fontSize: isLarge ? 18 : isSmall ? 13 : 15,
+    },
+    headerText: {
+      fontSize: isLarge ? 22 : isSmall ? 15 : 17,
+    },
+    icon: {
+      fontSize: isLarge ? 34 : 28,
+    }
+  };
+
   return (
     <View style={styles.container}>
+      
+      {/* HEADER */}
       <View style={styles.headerRow}>
         <View style={styles.headerBox}>
-          <Text style={styles.headerText}>Lista de desejos</Text>
+          <Text style={[styles.headerText, dynamic.headerText]}>
+            Lista de desejos
+          </Text>
         </View>
+
         <TouchableOpacity style={styles.iconContainer}>
-          <Text style={styles.icon}>♡</Text>
+          <Text style={[styles.icon, dynamic.icon]}>♡</Text>
         </TouchableOpacity>
       </View>
 
+      {/* LISTA */}
       <FlatList
         data={books}
         keyExtractor={item => item.id}
         numColumns={2}
         contentContainerStyle={styles.booksList}
-        columnWrapperStyle={{ justifyContent: 'space-between', marginBottom: 18 }}
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
         renderItem={({ item }) => (
-          <View style={styles.bookItem}>
-            <Image source={{ uri: item.image }} style={styles.bookImage} />
-            <Text style={styles.bookTitle} numberOfLines={2}>{item.title}</Text>
+          <View style={[styles.bookItem, dynamic.bookItem]}>
+            <Image
+              source={{ uri: item.image }}
+              style={[styles.bookImage, dynamic.bookImage]}
+            />
+            <Text
+              style={[styles.bookTitle, dynamic.bookTitle]}
+              numberOfLines={2}
+            >
+              {item.title}
+            </Text>
           </View>
         )}
       />
+
     </View>
   );
 }
@@ -106,15 +151,14 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   headerText: {
-    fontSize: 17,
     color: '#fff',
     fontWeight: '600',
   },
   iconContainer: {
-    padding: 6,
+    padding: 10,
+    marginTop: 30,
   },
   icon: {
-    fontSize: 28,
     color: '#000',
   },
   booksList: {
@@ -122,22 +166,15 @@ const styles = StyleSheet.create({
   },
   bookItem: {
     alignItems: 'center',
-    marginBottom: 22,
-    marginRight: 28,
-    width: 140,
-    padding: 10,
-    margin: 40,
   },
   bookImage: {
-    width: 124,
-    height: 172,
     borderRadius: 10,
     resizeMode: 'cover',
     marginBottom: 6,
   },
   bookTitle: {
-    fontSize: 15,
     color: '#38282A',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight: '500',
   },
 });

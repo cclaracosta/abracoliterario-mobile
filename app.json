@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "aplicativo-mobile",
-    "slug": "aplicativo-mobile",
+    "name": "Abraços Literarios",
+    "slug": "Abraços Literarios",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logo_abracospng.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
