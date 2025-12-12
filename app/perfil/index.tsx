@@ -40,7 +40,7 @@ const UserGoalScreen = () => {
 
       {/* Botão para editar perfil */}
       <TouchableOpacity onPress={() => router.push('/editar-perfil')}>
-        <Text style={styles.editProfile}>editar perfil 😊</Text>
+        <Text style={styles.editProfile}>editar perfil</Text>
       </TouchableOpacity>
 
       {/* Meta de leitura */}
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     borderRadius: wp('12.5%'),
     marginBottom: hp('1%'),
     marginTop: hp('2%'),
+    resizeMode: 'cover'
   },
   username: {
     fontSize: RFValue(18),

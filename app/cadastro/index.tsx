@@ -23,7 +23,7 @@ export default function Cadastro() {
         </Text>
 
         <Image
-          source={require("../../assets/images/simboloabraco.png")}
+          source={require("../../assets/images/logo_abracospng.png")}
           style={styles.avatar}
         />
       </View>

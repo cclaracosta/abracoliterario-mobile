@@ -15,13 +15,13 @@ describe("Tela Principal (UserProfile)", () => {
     jest.clearAllMocks();
   });
 
-  it("deve renderizar o campo de busca", () => {
+  it("renderizar o campo de busca", () => {
     const { getByTestId } = render(<UserProfile />);
     const searchInput = getByTestId("campo-busca");
     expect(searchInput).toBeTruthy();
   });
 
-  it("deve filtrar livros ao digitar no campo de busca", () => {
+  it("filtrar livros ao digitar no campo de busca", () => {
     const { getByTestId, getByText } = render(<UserProfile />);
     const input = getByTestId("campo-busca");
 
@@ -30,13 +30,13 @@ describe("Tela Principal (UserProfile)", () => {
     expect(getByText("Clara dos Anjos")).toBeTruthy();
   });
 
-  it("deve renderizar a imagem do livro", () => {
+  it("renderizar a imagem do livro", () => {
     const { getByTestId } = render(<UserProfile />);
     const image = getByTestId("book-image-1");
     expect(image).toBeTruthy();
   });
 
-  it("deve navegar ao clicar em um livro", () => {
+  it("navegar ao clicar em um livro", () => {
     const { getByTestId } = render(<UserProfile />);
     
     const item = getByTestId("book-1");
@@ -56,7 +56,7 @@ describe("Tela Principal (UserProfile)", () => {
     });
   });
 
-  it("deve navegar para o perfil ao clicar no botão superior", () => {
+  it("navegar para o perfil ao clicar no botão superior", () => {
     const { getByTestId } = render(<UserProfile />);
     const botaoPerfil = getByTestId("botao-perfil");
 

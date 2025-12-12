@@ -1,7 +1,8 @@
-jest.mock("react-native-reanimated", () => {
-  const Reanimated = require("react-native-reanimated/mock");
+import mock from 'react-native-reanimated/mock';
 
-  Reanimated.default.call = () => {};
+const Reanimated = {
+  ...mock,
+  call: () => {},
+};
 
-  return Reanimated;
-});
+export default Reanimated;

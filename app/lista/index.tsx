@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useReducer } from 'react'; 
 import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet, useWindowDimensions } from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
 
 const books = [
   {
@@ -54,7 +55,20 @@ const books = [
   },
 ];
 
+const initialState = { liked: false };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "TOGGLE_LIKE":
+      return { ...state, liked: !state.liked };
+    default:
+      return state;
+  }
+}
+
 export default function WishListScreen() {
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const { width } = useWindowDimensions();
 
@@ -96,8 +110,16 @@ export default function WishListScreen() {
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.iconContainer}>
-          <Text style={[styles.icon, dynamic.icon]}>♡</Text>
+        {/* botão igual ao livro */}
+        <TouchableOpacity
+          onPress={() => dispatch({ type: "TOGGLE_LIKE" })}
+          style={styles.iconContainer}
+        >
+          <Ionicons
+            name={state.liked ? "heart" : "heart-outline"}
+            size={dynamic.icon.fontSize}
+            color={state.liked ? "#E76CA1" : "#38282A"}
+          />
         </TouchableOpacity>
       </View>
 
@@ -157,9 +179,6 @@ const styles = StyleSheet.create({
   iconContainer: {
     padding: 10,
     marginTop: 30,
-  },
-  icon: {
-    color: '#000',
   },
   booksList: {
     paddingBottom: 30,

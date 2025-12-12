@@ -4,7 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, useWindowDi
 
 export default function LoginScreen() {
   const router = useRouter();
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,7 +38,7 @@ export default function LoginScreen() {
       {/* HEADER */}
       <View style={styles.header}>
         <Image
-          source={require('../../assets/images/simboloabraco.png')}
+          source={require('../../assets/images/logo_abracospng.png')}
           style={[styles.avatar, dynamicStyles.avatar]}
         />
 
@@ -56,6 +56,7 @@ export default function LoginScreen() {
         <TextInput
           style={[styles.input, dynamicStyles.input]}
           placeholder="E-mail"
+          placeholderTextColor="#555"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -65,6 +66,7 @@ export default function LoginScreen() {
           style={[styles.input, dynamicStyles.input]}
           placeholder="Senha"
           secureTextEntry
+          placeholderTextColor="#555"
           value={password}
           onChangeText={setPassword}
         />
@@ -111,17 +113,21 @@ const styles = StyleSheet.create({
   avatar: {
     resizeMode: 'contain',
     marginBottom: 10,
+    height: 100,
+    width: 100,
   },
   title: {
     fontWeight: 'bold',
     color: '#000',
     textAlign: 'center',
+    fontFamily: "Alexandria",
   },
   subtitle: {
     textAlign: 'center',
     marginVertical: 10,
     color: '#000000ff',
     maxWidth: '80%',
+    fontFamily: "Alexandria",
   },
 
   form: {
@@ -137,12 +143,13 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 20,
     marginVertical: 10,
+    fontFamily: "Alexandria",
   },
   forgot: {
     alignSelf: 'flex-end',
     color: '#FD5972',
     marginBottom: 20,
-    marginLeft: 200,
+    fontFamily: "Alexandria",
   },
   loginButton: {
     width: '100%',
@@ -155,12 +162,14 @@ const styles = StyleSheet.create({
   loginText: {
     color: '#fff',
     fontWeight: 'bold',
+    fontFamily: "Alexandria",
   },
   noAccount: {
     marginVertical: 5,
     color: '#FD5972',
     alignSelf: 'flex-start',
     fontSize: 15,
+    fontFamily: "Alexandria",
   },
   link: {
     color: "blue",
@@ -168,5 +177,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginTop: -25,
     marginLeft: 250,
+    fontFamily: "Alexandria",
   },
 });
