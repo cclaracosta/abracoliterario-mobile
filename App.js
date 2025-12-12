@@ -1,19 +1,26 @@
-import { Stack } from "expo-router";
-import { useFonts } from "expo-font";
-import { View, ActivityIndicator } from "react-native";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function Layout() {
-  const [fontsLoaded] = useFonts({
-    Alexandria: require("../assets/fonts/Alexandria-Regular.ttf"),
-  });
+import Perfil from './app/perfil/index';
+import UserProfile from './app/tela principal/index'; 
+const Stack = createNativeStackNavigator();
 
-  if (!fontsLoaded) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
-
-  return <Stack />;
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="UserProfile">
+        <Stack.Screen
+          name="UserProfile"
+          component={UserProfile}
+          options={{ title: 'Home' }}
+        />
+        <Stack.Screen
+          name="Perfil"
+          component={Perfil}
+          options={{ title: 'Perfil' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }

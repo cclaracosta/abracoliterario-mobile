@@ -117,12 +117,13 @@ const styles = StyleSheet.create({
     width: 100,
   },
   title: {
-    fontWeight: 'bold',
+    fontFamily: 'Alexandria_700Bold',
     color: '#000',
     textAlign: 'center',
     fontFamily: "Alexandria",
   },
   subtitle: {
+    fontFamily: 'Alexandria_400Regular',
     textAlign: 'center',
     marginVertical: 10,
     color: '#000000ff',
@@ -143,9 +144,10 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 20,
     marginVertical: 10,
-    fontFamily: "Alexandria",
+    fontFamily: 'Alexandria_400Regular',
   },
   forgot: {
+    fontFamily: 'Alexandria_400Regular',
     alignSelf: 'flex-end',
     color: '#FD5972',
     marginBottom: 20,
@@ -160,11 +162,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   loginText: {
+    fontFamily: 'Alexandria_700Bold',
     color: '#fff',
     fontWeight: 'bold',
     fontFamily: "Alexandria",
   },
   noAccount: {
+    fontFamily: 'Alexandria_400Regular',
     marginVertical: 5,
     color: '#FD5972',
     alignSelf: 'flex-start',
@@ -172,7 +176,8 @@ const styles = StyleSheet.create({
     fontFamily: "Alexandria",
   },
   link: {
-    color: "blue",
+    fontFamily: 'Alexandria_400Regular',
+    color: "wine",
     fontSize: 15,
     alignSelf: 'flex-start',
     marginTop: -25,
