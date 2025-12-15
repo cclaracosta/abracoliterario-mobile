@@ -5,55 +5,62 @@ import db from "./lib/db.js";
 
 dotenv.config();
 
-// 🔥 AQUI VOCÊ CRIA O app — SEM ISSO NADA FUNCIONA
-const app = express();
+console.log("PGHOST:", process.env.PGHOST);
+console.log("PGUSER:", process.env.PGUSER);
+console.log("PGDATABASE:", process.env.PGDATABASE);
+console.log("PGPASSWORD:", process.env.PGPASSWORD ? "OK" : "VAZIO");
 
+
+const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 🔍 Teste de conexão
-app.get("/api/teste", async (req, res) => {
+// TESTE
+app.get("/ping", (req, res) => {
+  res.json({ ok: true, msg: "API está viva" });
+});
+
+app.get("/teste-db", async (req, res) => {
   try {
     const result = await db.query("SELECT NOW()");
-    res.json({ ok: true, server_time: result.rows[0] });
+    res.json({ ok: true, hora: result.rows[0] });
   } catch (err) {
+    console.error("ERRO DB:", err);
     res.status(500).json({ error: err.message });
   }
 });
 
-// 📚 LISTAR TODOS OS LIVROS
+// 🔥 LISTAR TODOS OS LIVROS
 app.get("/livros", async (req, res) => {
   try {
-    const sql = `
+    const result = await db.query(`
       SELECT 
         id,
-        nome AS titulo,
-        capa,
-        descricao,
-        pdf
+        titulo,
+        capa_url,
+        sinopse
       FROM livros
-      ORDER BY id ASC
-    `;
+    `);
 
-    const result = await db.query(sql);
     res.json(result.rows);
   } catch (error) {
-    console.error("Erro ao buscar livros:", error);
-    res.status(500).json({ error: "Erro ao buscar livros" });
+    console.error("ERRO AO BUSCAR LIVROS:", error);
+    res.status(500).json({
+      error: "Erro ao buscar livros",
+      detalhe: error.message
+    });
   }
 });
 
-// 📘 Buscar livro por ID
-app.get("/api/livro/:id", async (req, res) => {
-  const { id } = req.params;
-
+// LIVRO POR ID (para tela de detalhes)
+app.get("/livros/:id", async (req, res) => {
   try {
-    const query = `
-      SELECT id, nome, autor, capa, descricao, comentario 
-      FROM livros 
-      WHERE id = $1
-    `;
-    const result = await db.query(query, [id]);
+    const { id } = req.params;
+
+    const result = await db.query(
+      "SELECT id, titulo, capa_url, descricao FROM livros WHERE id = $1",
+      [id]
+    );
 
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "Livro não encontrado" });
@@ -61,11 +68,12 @@ app.get("/api/livro/:id", async (req, res) => {
 
     res.json(result.rows[0]);
   } catch (error) {
-    console.error("Erro ao consultar banco:", error);
-    res.status(500).json({ error: "Erro interno" });
+    console.error(error);
+    res.status(500).json({ error: "Erro ao buscar livro" });
   }
 });
 
-// 🚀 Iniciar servidor
 const PORT = 3000;
-app.listen(PORT, () => console.log("API rodando na porta " + PORT));
+app.listen(PORT, () =>
+  console.log("🚀 API rodando em http://localhost:" + PORT)
+);

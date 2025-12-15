@@ -11,9 +11,12 @@ const pool = new Pool({
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
   database: process.env.PGDATABASE,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  ssl: { rejectUnauthorized: false }
 });
 
-export default pool;
+try {
+  const res = await pool.query("SELECT NOW()");
+  console.log("✅ CONECTOU:", res.rows[0]);
+} catch (err) {
+  console.error("❌ ERRO REAL:", err);
+}
