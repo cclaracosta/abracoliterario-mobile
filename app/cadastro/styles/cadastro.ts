@@ -9,25 +9,35 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFCFDB",
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: width * 0.05, // 5% da largura
+    paddingHorizontal: width * 0.05,
   },
 
   header: {
     alignItems: "center",
     marginBottom: width * 0.05,
+    zIndex: 1,
+    marginTop: -320,
+  },
+
+  header1: {
+    alignItems: 'center',
+    marginBottom: 20,
+    width: '100%',
+    zIndex: 2,
   },
 
   avatar: {
-    width: width * 0.25,   // 25% da tela
-    height: width * 0.25,
+    width: width * 0.85,  
+    height: width * 0.85,
     resizeMode: "contain",
     marginTop: 10,
   },
 
   title: {
-    fontSize: width * 0.06,  // escalável
+    fontSize: width * 0.06,
     fontWeight: "700",
     color: "#000",
+    marginTop: -50,
   },
 
   subtitle: {
@@ -35,7 +45,7 @@ export const styles = StyleSheet.create({
     fontSize: width * 0.035,
     color: "#000",
     marginTop: 6,
-    width: width * 0.7, // 70% da tela
+    width: width * 0.7,
   },
 
   form: {
@@ -44,7 +54,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFABB8",
     padding: width * 0.04,
     borderRadius: 20,
-    marginTop: 14,
+    marginTop: 200,
   },
 
   input: {

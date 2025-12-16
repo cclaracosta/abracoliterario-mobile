@@ -1,21 +1,9 @@
 import { useRouter } from "expo-router";
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Image,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, TextInput, Image, FlatList, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
 import axios from "axios";
 import { RFValue } from "react-native-responsive-fontsize";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const API_URL = "https://abraco-literario.vercel.app/api";
 
@@ -23,11 +11,10 @@ export default function UserProfile() {
   const router = useRouter();
 
   const [search, setSearch] = useState("");
-  const [books, setBooks] = useState([]); // ✅ sempre array
+  const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(false);
 
-  // 🔥 BUSCAR LIVROS DA API
   useEffect(() => {
     async function fetchBooks() {
       try {
@@ -45,14 +32,12 @@ export default function UserProfile() {
     fetchBooks();
   }, []);
 
-  // 🔍 FILTRO
   const filteredBooks = useMemo(() => {
     return books.filter((book) =>
       book.titulo?.toLowerCase().includes(search.toLowerCase())
     );
   }, [books, search]);
 
-  // 📘 ABRIR DETALHES
   const handleBookPress = (book) => {
     router.push({
       pathname: "/livros",
@@ -67,7 +52,6 @@ export default function UserProfile() {
 
   return (
     <View style={styles.container}>
-      {/* HEADER */}
       <TouchableOpacity
         style={styles.header}
         onPress={() => router.push("/perfil")}
@@ -81,7 +65,6 @@ export default function UserProfile() {
         <Text style={styles.greeting}>Oi, Clara!</Text>
       </TouchableOpacity>
 
-      {/* BUSCA */}
       <TextInput
         style={styles.searchInput}
         placeholder="Buscar livros"
@@ -90,19 +73,16 @@ export default function UserProfile() {
         onChangeText={setSearch}
       />
 
-      {/* LOADING */}
       {loading && (
         <ActivityIndicator size="large" color="#C194B7" style={{ marginTop: 20 }} />
       )}
 
-      {/* ERRO */}
       {!loading && erro && (
         <Text style={styles.errorText}>
           Erro ao conectar à API
         </Text>
       )}
 
-      {/* LISTA */}
       {!loading && !erro && (
         <FlatList
           data={filteredBooks}

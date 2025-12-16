@@ -102,7 +102,6 @@ export default function WishListScreen() {
   return (
     <View style={styles.container}>
       
-      {/* HEADER */}
       <View style={styles.headerRow}>
         <View style={styles.headerBox}>
           <Text style={[styles.headerText, dynamic.headerText]}>
@@ -110,7 +109,6 @@ export default function WishListScreen() {
           </Text>
         </View>
 
-        {/* botão igual ao livro */}
         <TouchableOpacity
           onPress={() => dispatch({ type: "TOGGLE_LIKE" })}
           style={styles.iconContainer}
@@ -123,7 +121,6 @@ export default function WishListScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* LISTA */}
       <FlatList
         data={books}
         keyExtractor={item => item.id}

@@ -29,27 +29,22 @@ const UserGoalScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Foto de perfil */}
       <Image
         source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZWU2rz5ntKtK2A2Sv21EIopsyhlXMSA8YAg&s' }}
         style={styles.profilePic}
       />
 
-      {/* Nome do usuário */}
       <Text style={styles.username}>@mariajoaquina</Text>
 
-      {/* Botão para editar perfil */}
       <TouchableOpacity onPress={() => router.push('/editar-perfil')}>
         <Text style={styles.editProfile}>editar perfil</Text>
       </TouchableOpacity>
 
-      {/* Meta de leitura */}
       <View style={styles.goalBox}>
         <Text style={styles.goalText}>Meta de leitura</Text>
         <Text style={styles.goal}>{state.totalBooks}/{state.goal} ✓ ({percentage}%)</Text>
       </View>
 
-      {/* Botões de incrementar/decrementar */}
       <View style={styles.buttonRow}>
         <TouchableOpacity style={styles.addButton} onPress={() => dispatch({ type: 'increment' })}>
           <Text style={styles.addButtonText}> + </Text>
@@ -60,7 +55,6 @@ const UserGoalScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Menu inferior */}
       <View style={styles.menuContainer}>
         <TouchableOpacity style={styles.menuButtonBig} onPress={() => router.push('/historico')}>
           <Text style={styles.menuLabel}>Histórico de livros</Text>
@@ -80,7 +74,6 @@ const UserGoalScreen = () => {
   );
 };
 
-// Estilos
 const styles = StyleSheet.create({
   container: {
     flex: 1,

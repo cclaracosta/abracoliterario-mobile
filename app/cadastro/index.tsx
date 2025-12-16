@@ -16,16 +16,20 @@ export default function Cadastro() {
 
   return (
     <View style={styles.container}>
+
+      <View style={styles.header1}>
+        <Image
+          source={require("../../assets/images/logo_abracospng.png")}
+          style={styles.avatar}
+        />
+      </View>
+
       <View style={styles.header}>
         <Text style={styles.title}>Cadastre-se</Text>
         <Text style={styles.subtitle}>
           Crie sua conta e descubra como a leitura pode empoderar sua voz de cidadão
         </Text>
 
-        <Image
-          source={require("../../assets/images/logo_abracospng.png")}
-          style={styles.avatar}
-        />
       </View>
 
       <View style={styles.form}>

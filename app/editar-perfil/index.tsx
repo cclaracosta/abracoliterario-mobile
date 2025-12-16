@@ -5,25 +5,21 @@ import { Ionicons } from "@expo/vector-icons";
 export default function EditProfileScreen() {
   return (
     <View style={styles.container}>
-      {/* Topo - título */}
       <Text style={styles.title}>
         editar perfil <Ionicons name="reload-outline" size={18} />
       </Text>
 
-      {/* Foto de perfil */}
       <View style={styles.profileContainer}>
         <Image
           source={{ uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZWU2rz5ntKtK2A2Sv21EIopsyhlXMSA8YAg&s" }}
           style={styles.profileImage}
         />
 
-        {/* Ícone de câmera no centro */}
         <TouchableOpacity style={styles.cameraButton}>
           <Ionicons name="camera-outline" size={26} color="#000" />
         </TouchableOpacity>
       </View>
 
-      {/* Card rosa com botões */}
       <View style={styles.card}>
         <View style={styles.row}>
           <TouchableOpacity style={styles.button}>
